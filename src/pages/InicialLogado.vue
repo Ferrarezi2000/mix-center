@@ -22,7 +22,7 @@
         <q-item-main>
           <span>{{ item.texto }}</span>
         </q-item-main>
-        <q-btn flat round dense icon="arrow_forward_ios"/>
+        <q-btn flat round dense icon="arrow_forward_ios" @click="navegar(item.rota)"/>
       </q-item>
       <hr/>
     </span>
@@ -38,11 +38,16 @@ export default {
     return {
       usuario: {nome: 'João Lima'},
       menu: [
-        {icone: 'shopping_cart', texto: 'Iniciar um compra'},
-        {icone: 'view_headline', texto: 'Meu histórico de compras'},
-        {icone: 'place', texto: 'Como chegar ao mercado'}
+        {icone: 'shopping_cart', texto: 'Iniciar um compra', rota: '/compra'},
+        {icone: 'view_headline', texto: 'Meu histórico de compras', rota: '/historico'},
+        {icone: 'place', texto: 'Como chegar ao mercado', rota: '/localizacao'}
       ],
       dataAtual: null
+    }
+  },
+  methods: {
+    navegar (rota) {
+      this.$router.push(rota)
     }
   }
 }
