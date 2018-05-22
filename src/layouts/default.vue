@@ -5,19 +5,38 @@
         color="orange"
         :inverted="$q.theme === 'ios'">
 
-        <q-btn flat dense round
+        <q-btn flat dense round v-if="!historicoNavegacao.voltar"
           @click="leftDrawerOpen = !leftDrawerOpen"
           aria-label="Menu">
           <q-icon name="menu" />
         </q-btn>
 
-        <q-toolbar-title>
-          Mix Certo
-          <div slot="subtitle">Mercado e Atacado</div>
+        <q-btn flat dense round v-else
+               @click="voltar"
+               aria-label="Voltar">
+          <q-icon name="arrow_back" />
+        </q-btn>
+
+        <q-toolbar-title @click.native="home">
+          {{ menuBarraNavegacao.titulo }}
+          <div slot="subtitle">
+            {{ menuBarraNavegacao.subTitulo }}
+          </div>
         </q-toolbar-title>
 
         <q-btn flat round dense icon="shopping_cart" />
-        <q-btn flat round dense icon="more_vert" />
+
+        <q-btn flat round dense icon="more_vert">
+          <q-popover
+            :anchor="anchor"
+            :self="self">
+            <q-list link style="min-width: 100px">
+              <q-item>
+                <q-item-main label="Sair" @click.native="sair"/>
+              </q-item>
+            </q-list>
+          </q-popover>
+        </q-btn>
 
       </q-toolbar>
     </q-layout-header>
@@ -60,16 +79,38 @@
 
 <script>
 import { openURL } from 'quasar'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'LayoutDefault',
   data () {
     return {
+      anchorOrigin: {vertical: 'bottom', horizontal: 'left'},
+      selfOrigin: {vertical: 'top', horizontal: 'left'},
+      popover: false,
       leftDrawerOpen: this.$q.platform.is.desktop
     }
   },
+  computed: {
+    ...mapGetters(['historicoNavegacao', 'menuBarraNavegacao']),
+    anchor () {
+      return `${this.anchorOrigin.vertical} ${this.anchorOrigin.horizontal}`
+    },
+    self () {
+      return `${this.selfOrigin.vertical} ${this.selfOrigin.horizontal}`
+    }
+  },
   methods: {
-    openURL
+    openURL,
+    home () {
+      this.$router.push('/')
+    },
+    voltar () {
+      this.$router.push(this.historicoNavegacao.rota)
+    },
+    sair () {
+      console.log('sair')
+    }
   }
 }
 </script>

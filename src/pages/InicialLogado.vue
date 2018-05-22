@@ -16,13 +16,13 @@
     <div class="flex flex-center texto">Diga-nos o que você deseja fazer</div>
 
     <hr/>
-    <span v-for="(item, index) in menu" :key="index" style="color: darkgrey;">
+    <span v-for="(item, index) in menu" :key="index" style="color: darkgrey;" @click="navegar(item.rota)">
       <q-item>
         <q-item-side :icon="item.icone"/>
         <q-item-main>
           <span>{{ item.texto }}</span>
         </q-item-main>
-        <q-btn flat round dense icon="arrow_forward_ios" @click="navegar(item.rota)"/>
+        <q-btn flat round dense icon="arrow_forward_ios"/>
       </q-item>
       <hr/>
     </span>
@@ -30,15 +30,18 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   created () {
     this.dataAtual = new Date()
+    this.historicoNavegacao({rota: null, voltar: false})
+    this.menuBarraNavegacao({titulo: 'Mix Certo', subTitulo: 'Mercado e Atacado'})
   },
   data () {
     return {
       usuario: {nome: 'João Lima'},
       menu: [
-        {icone: 'shopping_cart', texto: 'Iniciar um compra', rota: '/compra'},
+        {icone: 'shopping_cart', texto: 'Iniciar um compra', rota: '/categoria'},
         {icone: 'view_headline', texto: 'Meu histórico de compras', rota: '/historico'},
         {icone: 'place', texto: 'Como chegar ao mercado', rota: '/localizacao'}
       ],
@@ -46,7 +49,10 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['historicoNavegacao', 'menuBarraNavegacao']),
     navegar (rota) {
+      let params = {rota: '/', voltar: true}
+      this.historicoNavegacao(params)
       this.$router.push(rota)
     }
   }

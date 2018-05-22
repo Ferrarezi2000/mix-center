@@ -57,7 +57,9 @@ module.exports = function (ctx) {
         'QItemMain',
         'QItemSide',
         'QTimeline',
-        'QTimelineEntry'
+        'QTimelineEntry',
+        'QPopover',
+        'QModal'
       ],
       directives: [
         'Ripple'
