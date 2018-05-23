@@ -31,8 +31,8 @@ export default {
   data () {
     return {
       menu: [
-        {icone: 'local_bar', texto: 'Alcólicas', rota: '/subCategoriaFinal'},
-        {icone: 'local_bar', texto: 'Não Alcólicas', rota: '/subCategoriaFinal'}
+        {icone: 'local_bar', texto: 'Alcólicas', rota: '/produtos'},
+        {icone: 'local_bar', texto: 'Não Alcólicas', rota: '/produtos'}
       ]
     }
   },

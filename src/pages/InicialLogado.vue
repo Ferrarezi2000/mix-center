@@ -12,7 +12,7 @@
     </div>
 
     <div class="flex flex-center nome">Boa tarde, {{ usuario.nome }}!</div>
-    <div class="flex flex-center data">{{ dataAtual | moment("dddd, DD MMM  YYYY") }}</div>
+    <div class="flex flex-center data">{{ dataAtual | moment("dddd, DD MMMM  YYYY") }}</div>
     <div class="flex flex-center texto">Diga-nos o que você deseja fazer</div>
 
     <hr/>
